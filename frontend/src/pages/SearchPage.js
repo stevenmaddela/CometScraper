@@ -538,8 +538,8 @@ useEffect(() => {
  // Redirect to the results page only if the entered stock ticker is valid
  
 if (isValidStock ) {
- const stockInfoResponse = await fetch(`http://127.0.0.1:5000/stock_info?ticker=${stockTicker}`);
- if (!stockInfoResponse.ok) {
+  const stockInfoResponse = await fetch(`/api/stock_info/${stockTicker}`);
+  if (!stockInfoResponse.ok) {
  throw new Error(`Failed to fetch stock info for ${stockTicker}`);
  }
  
@@ -649,8 +649,8 @@ if (isValidStock ) {
  useEffect(() => {
         const fetchTrendingData = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:5000/trending');
-                if (!response.ok) {
+              const response = await fetch(`/api/trending`);
+              if (!response.ok) {
                     throw new Error('Failed to fetch trending data');
                 }
                 const data = await response.json();
@@ -663,7 +663,7 @@ if (isValidStock ) {
 
                 for (let i = 0; i < Math.min(8, trendingArray.length); i++) {
                     const stock = trendingArray[i];
-                    const stockInfoResponse = await fetch(`http://127.0.0.1:5000/stock_info?ticker=${stock}`);
+                    const stockInfoResponse = await fetch(`/api/stock_info/${stock}`);
                     if (!stockInfoResponse.ok) {
                         throw new Error(`Failed to fetch stock info for ${stock}`);
                     }
@@ -679,7 +679,7 @@ if (isValidStock ) {
 
                 for (let i = 0; i < Math.min(8, losingArray.length); i++) {
                     const stock = losingArray[i];
-                    const stockInfoResponse = await fetch(`http://127.0.0.1:5000/stock_info?ticker=${stock}`);
+                    const stockInfoResponse = await fetch(`/api/stock_info/${stock}`);
                     if (!stockInfoResponse.ok) {
                         throw new Error(`Failed to fetch stock info for ${stock}`);
                     }
@@ -715,7 +715,7 @@ if (isValidStock ) {
               console.log(encodedArrayOfArrays);
       
               // Make the fetch request with the encoded array of arrays in the URL
-              const watchlistResponse = await fetch(`http://127.0.0.1:5000/recommendations?arrayOfArrays=${encodedArrayOfArrays}`);
+              const watchlistResponse = await fetch(`/api/recommendations?arrayOfArrays=${encodedArrayOfArrays}`);
       
               if (!watchlistResponse.ok) {
                   throw new Error('Failed to fetch recommendations with watchlist');
@@ -861,7 +861,7 @@ const handleAddClick = async (index) => {
       // Loop until a new recommendation is found
       while (!newRecommendationFound) {
           // Fetch a single recommendation from the backend
-          const singleRecommendationResponse = await fetch(`http://127.0.0.1:5000/SingleRecommendation?arrayOfArrays=${encodedArrayOfArrays}`);
+          const singleRecommendationResponse = await fetch(`/api/single_recommendation?arrayOfArrays=${encodedArrayOfArrays}`);
           
           // Check if the response is successful
           if (!singleRecommendationResponse.ok) {
@@ -902,7 +902,7 @@ const updateWatchlistArray = async () => {
     
 
     for (let i = 0; i < watchlistArray.length; i++) {
-      const stockInfoResponse = await fetch(`http://127.0.0.1:5000/stock_info?ticker=${watchlistArray[i][0]}`);
+      const stockInfoResponse = await fetch(`/api/stock_info/${watchlistArray[i][0]}`);
       
       
       
