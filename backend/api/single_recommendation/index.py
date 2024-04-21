@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, Response, jsonify, request
 import yfinance as yf
 from concurrent.futures import ThreadPoolExecutor
 import random
@@ -8,7 +8,16 @@ import time
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def catch_all(path):
+    if path == "single_recommendation":
+        return get_single_recommendation()
+    else:
+        return Response(
+            "<h1>Flask</h1><p>Route not found: /%s</p>" % (path), mimetype="text/html"
+        )
+
 def get_single_recommendation():
     def calculate_sector_distribution(stock_list):
         sector_counts = {}
@@ -139,6 +148,5 @@ def get_single_recommendation():
     # Return the information for the closest stock
     return jsonify(single_recommendation_info)
 
-# Running the Flask app
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

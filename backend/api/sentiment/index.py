@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, Response, jsonify, request
 import yfinance as yf
 from bs4 import BeautifulSoup
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
@@ -10,7 +10,16 @@ import json
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def catch_all(path):
+    if path == "sentiment":
+        return get_sentiment()
+    else:
+        return Response(
+            "<h1>Flask</h1><p>Route not found: /%s</p>" % (path), mimetype="text/html"
+        )
+
 def get_sentiment():
     # Retrieve the stock ticker from the query parameters
     stock_ticker = request.args.get('ticker')
@@ -79,6 +88,5 @@ def get_sentiment():
 
     return jsonify(sentiment_info)
 
-# Running the Flask app
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

@@ -1,9 +1,18 @@
-from flask import Flask, jsonify, request
+from flask import Flask, Response, jsonify, request
 import yfinance as yf
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def catch_all(path):
+    if path == "stock_info":
+        return get_stock_info()
+    else:
+        return Response(
+            "<h1>Flask</h1><p>Route not found: /%s</p>" % (path), mimetype="text/html"
+        )
+
 def get_stock_info():
     # Retrieve the stock ticker from the query parameters
     stock_ticker = request.args.get('ticker')
