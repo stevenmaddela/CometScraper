@@ -3,25 +3,12 @@ import yfinance as yf
 
 app = Flask(__name__)
 
-@app.route("/", defaults={"path": ""})
-@app.route("/<path:path>")
-def catch_all(path):
-    if path == "stock_info":
-        return get_stock_info()
-    else:
-        return Response(
-            "<h1>Flask</h1><p>Route not found: /%s</p>" % (path), mimetype="text/html"
-        )
-
-def get_stock_info():
-    # Retrieve the stock ticker from the query parameters
-    stock_ticker = request.args.get('ticker')
-    
+@app.route("/api/stock_info/<stock_ticker>")
+def get_stock_info(stock_ticker):
     stock = yf.Ticker(stock_ticker)
+    
     # Get the intraday data for the current day
     intraday_data = stock.history(period='1d', interval='1m')
-
-    # Access the most recent closing price (current value)
     current_value = intraday_data['Close'].iloc[-1]
 
     # Access the closing price from yesterday (second-to-last data point)
