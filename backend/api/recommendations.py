@@ -2,13 +2,14 @@ from http.server import BaseHTTPRequestHandler
 import json
 import yfinance as yf
 import random
-import os
 
 class RecommendationsHandler(BaseHTTPRequestHandler):
  
     def do_GET(self):
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
+        self.send_header('Access-Control-Allow-Origin', '*')  # Allow requests from any origin
+        self.send_header('Access-Control-Allow-Methods', 'GET')  # Allow only GET requests
         self.end_headers()
         
         # Function to get stock stats
@@ -29,10 +30,10 @@ class RecommendationsHandler(BaseHTTPRequestHandler):
         # Calculate the average price
         average_price = total_price / total_stocks
 
-        # Pick stocks based on sector distribution
+        # Pick stocks randomly
         picked_stocks = random.sample(stock_list, min(8, len(stock_list)))
 
-        # Fetch stats for the picked stocks using multithreading
+        # Fetch stats for the picked stocks
         stats_array = []
         for ticker in picked_stocks:
             stats_array.append(get_stats(ticker))
