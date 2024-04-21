@@ -144,7 +144,7 @@ function ResultsPage() {
     const fetchData = async () => {
       try {
         if (stockTicker && stockTicker.trim() !== '') {
-          const res = await fetch(`/api/sentiment/${stockTicker}`);
+          const res = await fetch(`http://127.0.0.1:5000/sentiment?ticker=${stockTicker}`);
           
           if (!res.ok) {
             console.log("Network response was not ok.");
