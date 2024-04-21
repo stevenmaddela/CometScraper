@@ -31,20 +31,10 @@ def get_trending():
     for x in yroot_losers.xpath('//*[@id="fin-scr-res-table"]//a'):
         losingArray.append(x.attrib['href'].split("/")[-1].split("?")[0])
 
-    # Prepare the HTML response
-    html_response = "<h1>Trending and Losing Stocks</h1>"
-    html_response += "<h2>Trending</h2>"
-    html_response += "<ul>"
-    for stock in trendingArray:
-        html_response += f"<li>{stock}</li>"
-    html_response += "</ul>"
-    html_response += "<h2>Losing</h2>"
-    html_response += "<ul>"
-    for stock in losingArray:
-        html_response += f"<li>{stock}</li>"
-    html_response += "</ul>"
-
-    return Response(html_response, mimetype="text/html")
+    return jsonify({
+        'Trending': trendingArray,
+        'Losing': losingArray
+    })
 
 if __name__ == '__main__':
     app.run(debug=True)

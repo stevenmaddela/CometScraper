@@ -134,16 +134,19 @@ def get_single_recommendation():
     dchange, pchange = get_change(ticker)
     sector = sector_info.get(ticker, "Unknown")
 
-    # Prepare the HTML response
-    html_response = f"<h1>Single Stock Recommendation</h1>"
-    html_response += "<h2>Stock Information</h2>"
-    html_response += f"<p>Ticker: {ticker}</p>"
-    html_response += f"<p>Price: {price}</p>"
-    html_response += f"<p>Price Change: {dchange}</p>"
-    html_response += f"<p>Percent Change: {pchange}</p>"
-    html_response += f"<p>Sector: {sector}</p>"
+    # Prepare the response
+    single_recommendation_info = {
+        'Ticker': ticker,
+        'Price': price,
+        'PriceChange': dchange,
+        'PercentChange': pchange,
+        'Sector': sector
+    }
 
-    return Response(html_response, mimetype="text/html")
+    print(single_recommendation_info)
+
+    # Return the information for the closest stock
+    return jsonify(single_recommendation_info)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5002)
+    app.run(debug=True, port=5000)
