@@ -34,12 +34,15 @@ def get_stock_info():
     # Calculate the percent change
     percent_change = (change_in_dollars / yesterday_close) * 100
 
-    return jsonify({
-        'Stock': stock_ticker,
-        'Value': current_value,
-        'dChange': change_in_dollars,
-        'pChange': percent_change
-    })
+    # Prepare the HTML response
+    html_response = f"<h1>Stock Information for {stock_ticker}</h1>"
+    html_response += "<h2>Current Value</h2>"
+    html_response += f"<p>Value: {current_value}</p>"
+    html_response += "<h2>Change</h2>"
+    html_response += f"<p>Change in Dollars: {change_in_dollars}</p>"
+    html_response += f"<p>Percent Change: {percent_change}</p>"
+
+    return Response(html_response, mimetype="text/html")
 
 if __name__ == '__main__':
     app.run(debug=True)

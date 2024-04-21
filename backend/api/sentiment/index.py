@@ -73,20 +73,17 @@ def get_sentiment():
     elif average_sentiment_score < -0.05:
         sentiment = 'Negative'
 
-    # Prepare the response
-    sentiment_info = {
-        'Ticker': stock_ticker,
-        'LongBusinessSummary': long_business_summary,
-        'ChartData': close_prices_list,
-        'ChartPointCount': chartPointCt,
-        'CurrentPrice': current_value,
-        'PriceChange': change_in_dollars,
-        'PercentChange': percent_change,
-        'Sentiment': sentiment,
-        'AverageSentimentScore': average_sentiment_score
-    }
+    # Prepare the HTML response
+    html_response = f"<h1>{stock_ticker} Sentiment Analysis</h1>"
+    html_response += "<h2>Stock Information</h2>"
+    html_response += f"<p>Current Price: {current_value}</p>"
+    html_response += f"<p>Price Change: {change_in_dollars}</p>"
+    html_response += f"<p>Percent Change: {percent_change}</p>"
+    html_response += "<h2>Sentiment Analysis</h2>"
+    html_response += f"<p>Sentiment: {sentiment}</p>"
+    html_response += f"<p>Average Sentiment Score: {average_sentiment_score}</p>"
 
-    return jsonify(sentiment_info)
+    return Response(html_response, mimetype="text/html")
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

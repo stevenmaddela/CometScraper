@@ -1,4 +1,4 @@
-from flask import Flask, Response, jsonify, request
+from flask import Flask, Response, request
 import yfinance as yf
 from concurrent.futures import ThreadPoolExecutor
 import random
@@ -120,8 +120,15 @@ def get_recommendations():
 
     print(stock_info_array)
 
-    # Return the array of arrays for the closest stocks
-    return jsonify(stock_info_array)
+    # Construct the HTML response
+    html_response = "<h1>Closest Stocks</h1>"
+    html_response += "<table border='1'><tr><th>Ticker</th><th>Price</th><th>Sector</th></tr>"
+    for stock_info in stock_info_array:
+        html_response += f"<tr><td>{stock_info[0]}</td><td>{stock_info[1]}</td><td>{stock_info[2]}</td></tr>"
+    html_response += "</table>"
+
+    # Return the HTML response
+    return Response(html_response, mimetype="text/html")
 
 if __name__ == '__main__':
     app.run(debug=True)
