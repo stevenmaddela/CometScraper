@@ -2,7 +2,7 @@
 import pandas as pd
 from bs4 import BeautifulSoup
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import yfinance as yf;
 import numpy as np
@@ -23,6 +23,12 @@ current_directory = os.path.dirname(__file__)
 # Initialize the Flask app and enable CORS
 app = Flask(__name__)
 CORS(app)
+
+
+@app.route('/')
+def index():
+    return render_template('test.html')
+
 
 @app.route('/trending', methods=['GET'])
 def get_trending():
