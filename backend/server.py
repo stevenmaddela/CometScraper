@@ -15,6 +15,7 @@ import time
 import json
 import numpy as np  # Import numpy library
 import os
+from flask_cors import CORS
 
 current_directory = os.path.dirname(__file__)
 
@@ -22,7 +23,7 @@ current_directory = os.path.dirname(__file__)
 
 # Initialize the Flask app and enable CORS
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "https://comet-scraper-cosrdqsat-stevenmaddelas-projects.vercel.app"}})
 
 @app.route('/trending', methods=['GET'])
 def get_trending():
@@ -158,7 +159,7 @@ def get_recommendations():
     total_stocks = len(FullStock_list)
 
     # Calculate the average price
-    average_price = total_price / total_stocks
+    average_price = total_price / total_stocks if total_price / total_stocks != 0 else 1
 
     # Calculate sector distribution and sector information
     sector_distribution, sector_info = calculate_sector_distribution(stock_list)
@@ -201,7 +202,8 @@ def get_recommendations():
     print(stock_info_array)
 
     # Return the array of arrays for the closest stocks
-    return stock_info_array
+    return jsonify(stock_info_array)
+
 
 @app.route('/SingleRecommendation', methods=['GET'])
 def get_SingleRecommendations():
@@ -283,7 +285,7 @@ def get_SingleRecommendations():
     total_stocks = len(FullStock_list)
 
     # Calculate the average price
-    average_price = total_price / total_stocks
+    average_price = total_price / total_stocks if total_price / total_stocks != 0 else 1
 
     # Calculate sector distribution and sector information
     sector_distribution, sector_info = calculate_sector_distribution(stock_list)
@@ -326,7 +328,7 @@ def get_SingleRecommendations():
     print(stock_info_array)
 
     # Return the array of arrays for the closest stocks
-    return stock_info_array
+    return jsonify(stock_info_array)
 
 
     

@@ -709,7 +709,7 @@ if (isValidStock ) {
       const fetchRecommendations = async () => {
           try {
               // Convert the array of arrays to a string and encode it for URL
-              const encodedArrayOfArrays = encodeURIComponent(JSON.stringify(watchlistArray));
+              const encodedArrayOfArrays = JSON.stringify(watchlistArray);
       
               console.log(watchlistArray);
               console.log(encodedArrayOfArrays);
@@ -853,7 +853,7 @@ const handleAddClick = async (index) => {
       setRecommendations(prevRecommendations => prevRecommendations.filter((_, i) => i !== index));
 
       // Encode the watchlistArray as a query parameter
-      const encodedArrayOfArrays = encodeURIComponent(JSON.stringify(watchlistArray));
+      const encodedArrayOfArrays = JSON.stringify(watchlistArray);
       
       let newRecommendationFound = false;
       let parsedSingleRecommendation;
