@@ -724,7 +724,6 @@ if (isValidStock ) {
                 throw new Error('Failed to fetch recommendations with watchlist');
             }
               const watchlistData = await watchlistResponse.json();
-              watchlistData = watchlistData.Array;
               
 
       
