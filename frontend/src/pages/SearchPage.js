@@ -708,21 +708,27 @@ if (isValidStock ) {
     useEffect(() => {
       const fetchRecommendations = async () => {
           try {
+              if(watchlistArray.length === 0){
+                return;
+              }
               // Convert the array of arrays to a string and encode it for URL
-              const encodedArrayOfArrays = JSON.stringify(watchlistArray);
+              const encodedArrayOfArrays = encodeURIComponent(JSON.stringify(watchlistArray));
       
               console.log(watchlistArray);
               console.log(encodedArrayOfArrays);
       
               // Make the fetch request with the encoded array of arrays in the URL
-              const watchlistResponse = await fetch(`https://cometscraperbackend-production.up.railway.app/recommendations?arrayOfArrays=${encodedArrayOfArrays}`);
+              const watchlistResponse = await fetch(`https://cometscraperbackend-production.up.railway.app/recommendations?arrayOfArrays=${encodedArrayOfArrays}`);      
       
               if (!watchlistResponse.ok) {
-                  throw new Error('Failed to fetch recommendations with watchlist');
-              }
+                throw new Error('Failed to fetch recommendations with watchlist');
+            }
+              const watchlistData = await watchlistResponse.json();
+              watchlistData = watchlistData.Array;
+              
+
       
               // Since the server returns a plain array, just parse the response
-              const watchlistData = await watchlistResponse.json();
               setRecommendations(watchlistData);
               setFetchSuccess(true);
               setRecommendationsLoading(false);
@@ -853,7 +859,7 @@ const handleAddClick = async (index) => {
       setRecommendations(prevRecommendations => prevRecommendations.filter((_, i) => i !== index));
 
       // Encode the watchlistArray as a query parameter
-      const encodedArrayOfArrays = JSON.stringify(watchlistArray);
+      const encodedArrayOfArrays = encodeURIComponent(JSON.stringify(watchlistArray));
       
       let newRecommendationFound = false;
       let parsedSingleRecommendation;
@@ -861,7 +867,7 @@ const handleAddClick = async (index) => {
       // Loop until a new recommendation is found
       while (!newRecommendationFound) {
           // Fetch a single recommendation from the backend
-          const singleRecommendationResponse = await fetch(`https://cometscraperbackend-production.up.railway.app/SingleRecommendation?arrayOfArrays=${encodedArrayOfArrays}`);
+          const singleRecommendationResponse = await fetch(`http://127.0.0.1:5000/SingleRecommendation?arrayOfArrays=${encodedArrayOfArrays}`);
           
           // Check if the response is successful
           if (!singleRecommendationResponse.ok) {
