@@ -737,7 +737,9 @@ if (isValidStock ) {
               fetchRecommendations();
           }
       };
-        
+    if (!fetchSuccess){
+      fetchRecommendations();
+    }
   }, [watchlistArray, fetchSuccess]); // This will run whenever watchlistArray changes
   
   
