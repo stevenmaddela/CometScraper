@@ -734,7 +734,7 @@ if (isValidStock ) {
               // Log the fetched array
           } catch (error) {
               console.error('Error fetching recommendations with watchlist:', error);
-              fetchRecommendations();
+              setTimeout(fetchRecommendations(), 1000);
           }
       };
     if (!fetchSuccess){
