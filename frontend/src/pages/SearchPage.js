@@ -737,11 +737,7 @@ if (isValidStock ) {
               fetchRecommendations();
           }
       };
-  
-      // Call the fetchRecommendations function when the component mounts or when watchlistArray changes
-      if (!fetchSuccess) {
-        fetchRecommendations();
-    }
+        
   }, [watchlistArray, fetchSuccess]); // This will run whenever watchlistArray changes
   
   
