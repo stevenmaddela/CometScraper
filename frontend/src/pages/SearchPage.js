@@ -16,6 +16,7 @@ import CoolDownArrow from "../components/CoolDownArrow1.png";
 import Watchlist from "../components/watchlist.png";
 import greyWatchlist from "../components/greywatchlist.png";
 
+
 import OffCoolUpArrow from "../components/OffCoolUpArrow.png";
 import OffCoolDownArrow from "../components/OffCoolDownArrow.png";
 import sentimentViewBlack from "../components/sentimentViewBlack.png";
