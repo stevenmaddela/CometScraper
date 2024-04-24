@@ -34,12 +34,6 @@ Tools
 
 <br/>
 
-### 💁‍♀️ How to use
-
-- Install Python requirements `pip install -r requirements.txt`
-- Start the server for development `python3 main.py`
-
-
 
 
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
