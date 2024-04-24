@@ -863,7 +863,6 @@ const handleAddClick = async (index) => {
       let parsedSingleRecommendation;
 
       // Loop until a new recommendation is found
-      while (!newRecommendationFound) {
           // Fetch a single recommendation from the backend
           const singleRecommendationResponse = await fetch(`https://cometscraperbackend-production.up.railway.app/SingleRecommendation?arrayOfArrays=${encodedArrayOfArrays}`);
           
@@ -882,7 +881,6 @@ const handleAddClick = async (index) => {
           if (!recommendations.some(rec => rec === parsedSingleRecommendation)) {
               newRecommendationFound = true;
           }
-      }
       
       // Update the recommendations state with the fetched single recommendation
       setRecommendations(prevRecommendations => [...prevRecommendations, ...parsedSingleRecommendation]);
@@ -891,6 +889,7 @@ const handleAddClick = async (index) => {
       console.log('Updated recommendations:', recommendations);
   } catch (error) {
       console.error('Error handling add click and fetching single recommendation:', error);
+      handleAddClick(index)
   }
 };
 
