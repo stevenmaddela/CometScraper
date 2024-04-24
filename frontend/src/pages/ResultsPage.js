@@ -365,8 +365,21 @@ useEffect(() => {
   };
 
   const handleBoxClick = () => {
-    setIsExpanded(!isExpanded); // Toggle the expansion state
-  };
+    
+    setTimeout(() => {
+
+      const scrollContainer = document.getElementById('scrollContainer');
+      if (scrollContainer) {
+        scrollContainer.scrollTop = 0; // Scroll to the top
+      }
+    
+      // Call setIsGraphVisible and setRefresh after scrolling
+      setIsExpanded(!isExpanded); // Toggle the expansion state
+
+    }, 100); // Adjust the delay time as needed
+    
+
+};
 
   const handleTimeInterval = (interval) => {
     switch (interval) {
