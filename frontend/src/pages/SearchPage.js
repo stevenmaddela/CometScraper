@@ -867,7 +867,6 @@ const handleAddClick = async (index) => {
       // Check if the response is successful
       if (!singleRecommendationResponse.ok) {
           throw new Error('Failed to fetch single recommendation');
-          handleAddClick(index)
           
       }
 
