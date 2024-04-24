@@ -880,6 +880,9 @@ const handleAddClick = async (index) => {
           if (!singleRecommendationResponse.ok) {
               throw new Error('Failed to fetch single recommendation');
           }
+         else{
+              newRecommendationFound = true;
+         }
 
           // Parse the JSON response
           const singleRecommendationData = await singleRecommendationResponse.json();
@@ -889,8 +892,8 @@ const handleAddClick = async (index) => {
           
           // Check if the fetched recommendation is not already in recommendations
           // Check if the fetched recommendation is not already in recommendations
-if (!recommendations.some(rec => arraysEqual(rec, parsedSingleRecommendation))) {
-    newRecommendationFound = true;
+if (!recommendations.some(rec => rec.length > 0 && rec[0] === parsedSingleRecommendation[0])) {
+    newRecommendationFound = false;
 }
 
       
