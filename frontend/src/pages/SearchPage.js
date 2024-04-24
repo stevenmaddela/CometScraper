@@ -868,36 +868,44 @@ const handleAddClick = async (index) => {
       // Encode the watchlistArray as a query parameter
       const encodedArrayOfArrays = encodeURIComponent(JSON.stringify(watchlistArray));
       
-      let newRecommendationFound = false;
+      const MAX_RETRIES = 5;
+const TIMEOUT_MS = 10000; // 5 seconds
+
+let newRecommendationFound = false;
 let parsedSingleRecommendation;
 
-// Loop until a new recommendation is found
-while (!newRecommendationFound) {
-    // Fetch a single recommendation from the backend
-    const singleRecommendationResponse = await fetch(`https://cometscraperbackend-production.up.railway.app/SingleRecommendation?arrayOfArrays=${encodedArrayOfArrays}`);
-    
-    // Check if the response is successful
-    if (!singleRecommendationResponse.ok) {
-        throw new Error('Failed to fetch single recommendation');
-    }
+// Attempt to fetch a recommendation with retries
+for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+    try {
+        const singleRecommendationResponse = await Promise.race([
+            fetch(`https://cometscraperbackend-production.up.railway.app/SingleRecommendation?arrayOfArrays=${encodedArrayOfArrays}`),
+            new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), TIMEOUT_MS))
+        ]);
+        
+        if (!singleRecommendationResponse.ok) {
+            throw new Error('Failed to fetch single recommendation');
+        }
 
-    // Parse the JSON response
-    const singleRecommendationData = await singleRecommendationResponse.json();
-    
-    // Ensure that the data is parsed as an array
-    parsedSingleRecommendation = Array.isArray(singleRecommendationData) ? singleRecommendationData : [singleRecommendationData];
-    
-    // Check if the fetched recommendation is not already in recommendations
-    if (!recommendations.some(rec => rec.length > 0 && rec[0] === parsedSingleRecommendation[0])) {
-        newRecommendationFound = true;
+        const singleRecommendationData = await singleRecommendationResponse.json();
+        parsedSingleRecommendation = Array.isArray(singleRecommendationData) ? singleRecommendationData : [singleRecommendationData];
+
+        if (!recommendations.some(rec => rec.length > 0 && rec[0] === parsedSingleRecommendation[0])) {
+            newRecommendationFound = true;
+            break; // Exit the loop if a new recommendation is found
+        }
+    } catch (error) {
+        console.error('Error fetching single recommendation:', error);
+        // Optionally, implement retry logic here
     }
 }
 
-// Update the recommendations state with the fetched single recommendation
-setRecommendations(prevRecommendations => [...prevRecommendations, ...parsedSingleRecommendation]);
-
-console.log('Fetched single recommendation:', parsedSingleRecommendation);
-console.log('Updated recommendations:', recommendations);
+if (newRecommendationFound) {
+    setRecommendations(prevRecommendations => [...prevRecommendations, ...parsedSingleRecommendation]);
+    console.log('Fetched single recommendation:', parsedSingleRecommendation);
+    console.log('Updated recommendations:', recommendations);
+} else {
+    console.error('Maximum retries reached without finding a new recommendation.');
+}
 
         
   } catch (error) {
