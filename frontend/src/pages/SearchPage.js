@@ -861,7 +861,7 @@ const handleAddClick = async (index) => {
       
       let newRecommendationFound = false;
       let parsedSingleRecommendation;
-
+ 
       const singleRecommendationResponse = await fetch(`http://127.0.0.1:5000/SingleRecommendation?arrayOfArrays=${encodedArrayOfArrays}`);
           
       // Check if the response is successful
@@ -883,7 +883,7 @@ const handleAddClick = async (index) => {
       console.log('Updated recommendations:', recommendations);
   } catch (error) {
       console.error('Error handling add click and fetching single recommendation:', error);
-      handleAddClick(index)
+      
   }
 };
 
