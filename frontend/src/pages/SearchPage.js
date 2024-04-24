@@ -868,7 +868,7 @@ const handleAddClick = async (index) => {
       // Encode the watchlistArray as a query parameter
       const encodedArrayOfArrays = encodeURIComponent(JSON.stringify(watchlistArray));
       
-      const MAX_RETRIES = 5;
+      const MAX_RETRIES = 10;
 const TIMEOUT_MS = 10000; // 5 seconds
 
 let newRecommendationFound = false;
