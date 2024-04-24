@@ -1551,7 +1551,7 @@ const handleRecommendationBoxClick = (index) => {
 
 {recommendationsVisible ? (
  <div style={{ textAlign: 'left' , paddingLeft: "12.1%", paddingTop:"1.2vh",fontSize: "14.5px"}}>
- <h2>RECOMMENDATIONS</h2>
+ <h2>WATCHLIST RECOMMENDATIONS</h2>
  </div>
 ) : (
  <div></div>
