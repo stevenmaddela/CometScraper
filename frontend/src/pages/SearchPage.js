@@ -892,7 +892,6 @@ const handleAddClick = async (index) => {
         }
   } catch (error) {
       console.error('Error handling add click and fetching single recommendation:', error);
-      handleAddClick(index)
   }
 };
 
