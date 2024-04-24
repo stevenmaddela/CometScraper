@@ -891,6 +891,7 @@ const handleAddClick = async (index) => {
       console.log('Updated recommendations:', recommendations);
   } catch (error) {
       console.error('Error handling add click and fetching single recommendation:', error);
+      handleAddClick(index)
   }
 };
 
