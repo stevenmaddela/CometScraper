@@ -865,7 +865,7 @@ const handleAddClick = async (index) => {
       // Loop until a new recommendation is found
       while (!newRecommendationFound) {
           // Fetch a single recommendation from the backend
-          const singleRecommendationResponse = await fetch(`http://127.0.0.1:5000/SingleRecommendation?arrayOfArrays=${encodedArrayOfArrays}`);
+          const singleRecommendationResponse = await fetch(`https://cometscraperbackend-production.up.railway.app/SingleRecommendation?arrayOfArrays=${encodedArrayOfArrays}`);
           
           // Check if the response is successful
           if (!singleRecommendationResponse.ok) {
