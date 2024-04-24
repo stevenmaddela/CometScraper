@@ -844,18 +844,7 @@ history.push(`/results?ticker=${stockTicker}`);
 
 const handleAddClick = async (index) => {
   try {
-      // Code to handle the click event
-      console.log('Eye symbol clicked for card at index:', index);
-      
-      // Extract the recommendation data from the recommendations array based on the index
-      const recommendationToAdd = recommendations[index];
-
-      // Add the recommendation data to the watchlistArray
-      setWatchlistArray(prevArray => [...prevArray, recommendationToAdd]);
-
-      // Remove the recommendation at the clicked index from the recommendations array
-      setRecommendations(prevRecommendations => prevRecommendations.filter((_, i) => i !== index));
-
+     
       // Encode the watchlistArray as a query parameter
       const encodedArrayOfArrays = encodeURIComponent(JSON.stringify(watchlistArray));
       
@@ -880,6 +869,18 @@ const handleAddClick = async (index) => {
           // Check if the fetched recommendation is not already in recommendations
           if (!recommendations.some(rec => rec === parsedSingleRecommendation)) {
               newRecommendationFound = true;
+               // Code to handle the click event
+      console.log('Eye symbol clicked for card at index:', index);
+      
+      // Extract the recommendation data from the recommendations array based on the index
+      const recommendationToAdd = recommendations[index];
+
+      // Add the recommendation data to the watchlistArray
+      setWatchlistArray(prevArray => [...prevArray, recommendationToAdd]);
+
+      // Remove the recommendation at the clicked index from the recommendations array
+      setRecommendations(prevRecommendations => prevRecommendations.filter((_, i) => i !== index));
+
           }
       
       // Update the recommendations state with the fetched single recommendation
