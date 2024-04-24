@@ -862,27 +862,19 @@ const handleAddClick = async (index) => {
       let newRecommendationFound = false;
       let parsedSingleRecommendation;
 
-      // Loop until a new recommendation is found
-      while (!newRecommendationFound) {
-          // Fetch a single recommendation from the backend
-          const singleRecommendationResponse = await fetch(`http://127.0.0.1:5000/SingleRecommendation?arrayOfArrays=${encodedArrayOfArrays}`);
+      const singleRecommendationResponse = await fetch(`http://127.0.0.1:5000/SingleRecommendation?arrayOfArrays=${encodedArrayOfArrays}`);
           
-          // Check if the response is successful
-          if (!singleRecommendationResponse.ok) {
-              throw new Error('Failed to fetch single recommendation');
-          }
+      // Check if the response is successful
+      if (!singleRecommendationResponse.ok) {
+          throw new Error('Failed to fetch single recommendation');
+      }
 
           // Parse the JSON response
-          const singleRecommendationData = await singleRecommendationResponse.json();
+      const singleRecommendationData = await singleRecommendationResponse.json();
           
           // Ensure that the data is parsed as an array
-          parsedSingleRecommendation = Array.isArray(singleRecommendationData) ? singleRecommendationData : [singleRecommendationData];
-          
-          // Check if the fetched recommendation is not already in recommendations
-          if (!recommendations.some(rec => rec === parsedSingleRecommendation)) {
-              newRecommendationFound = true;
-          }
-      }
+      parsedSingleRecommendation = Array.isArray(singleRecommendationData) ? singleRecommendationData : [singleRecommendationData];
+   
       
       // Update the recommendations state with the fetched single recommendation
       setRecommendations(prevRecommendations => [...prevRecommendations, ...parsedSingleRecommendation]);
