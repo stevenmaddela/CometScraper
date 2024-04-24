@@ -265,7 +265,7 @@ const handleSentimentViewClick = () => {
             drawChart(monthlyClosePrices1, "Date");
           }
           else {
-             const monthlyClosePrices1 = [["good", "2024-04-24T00:00:00.000Z", null]];
+             const monthlyClosePrices1 = [["good",  "null"]];
             ];
             drawChart(monthlyClosePrices1, "Sorry No Stored Sentiment Values, Check Back Soon");
         } 
@@ -275,7 +275,7 @@ const handleSentimentViewClick = () => {
       }
     }
     if(!stockTicker){
-       const monthlyClosePrices1 = [["good", "2024-04-24T00:00:00.000Z", null]];
+       const monthlyClosePrices1 = [["good",  "null"]];
      ];
     drawChart(monthlyClosePrices1, "Sorry No Stored Sentiment Values, Check Back Soon");
     }
