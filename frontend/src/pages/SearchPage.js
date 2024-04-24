@@ -1314,7 +1314,7 @@ const handleRecommendationBoxClick = (index) => {
  {bottomRowVisible ? (
   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', marginTop: '2%', marginLeft: '10%', marginRight: '10%' }}>
     { !losingLoading? (losingArray.slice(0, topRowVisible && bottomRowVisible ? 4 : 8).map((stock, index) => (
-      <div key={index} onClick={() => topRowVisible && bottomRowVisible ? handleBothBoxClickUp(index) : handleBoxClick(index)} style={{ position: 'relative', marginTop: index >= 4 ? '32px' : bottomRowVisible && topRowVisible? '1.7px': '0px' }}>
+      <div key={index} onClick={() => topRowVisible && bottomRowVisible ? handleBothBoxClickDown(index) : handleBoxClick(index)} style={{ position: 'relative', marginTop: index >= 4 ? '32px' : bottomRowVisible && topRowVisible? '1.7px': '0px' }}>
         {(index === 3) && (
           <div style={{ position: 'absolute', top: '-13%', left: '-290%', zIndex: '100', fontSize: "14.5px" }}>
             <h2>TOP LOSERS</h2>
