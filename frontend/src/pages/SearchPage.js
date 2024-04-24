@@ -862,11 +862,12 @@ const handleAddClick = async (index) => {
       let newRecommendationFound = false;
       let parsedSingleRecommendation;
  
-      const singleRecommendationResponse = await fetch(`http://127.0.0.1:5000/SingleRecommendation?arrayOfArrays=${encodedArrayOfArrays}`);
+      const singleRecommendationResponse = await fetch(`cometscraperbackend-production.up.railway.app/SingleRecommendation?arrayOfArrays=${encodedArrayOfArrays}`);
           
       // Check if the response is successful
       if (!singleRecommendationResponse.ok) {
           throw new Error('Failed to fetch single recommendation');
+          
       }
 
           // Parse the JSON response
