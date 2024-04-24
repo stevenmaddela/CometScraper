@@ -842,6 +842,15 @@ history.push(`/results?ticker=${stockTicker}`);
   });
 };
 
+function arraysEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) return false;
+    for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) return false;
+    }
+    return true;
+}
+
+ 
 const handleAddClick = async (index) => {
   try {
       // Code to handle the click event
@@ -879,10 +888,11 @@ const handleAddClick = async (index) => {
           parsedSingleRecommendation = Array.isArray(singleRecommendationData) ? singleRecommendationData : [singleRecommendationData];
           
           // Check if the fetched recommendation is not already in recommendations
-          if (!recommendations.some(rec => rec === parsedSingleRecommendation)) {
-              newRecommendationFound = true;
-             
-          }
+          // Check if the fetched recommendation is not already in recommendations
+if (!recommendations.some(rec => arraysEqual(rec, parsedSingleRecommendation))) {
+    newRecommendationFound = true;
+}
+
       
       // Update the recommendations state with the fetched single recommendation
       setRecommendations(prevRecommendations => [...prevRecommendations, ...parsedSingleRecommendation]);
