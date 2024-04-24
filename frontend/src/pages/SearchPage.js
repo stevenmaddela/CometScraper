@@ -390,6 +390,8 @@ const handleSentimentViewClick = () => {
               display: true, // Display the title for the y-axis
               text: 'Sentiment', // Title text
             },
+           suggestedMin: -1, // Set the minimum value for the y-axis
+      suggestedMax: 1,  // Set the maximum value for the y-axis
           },
         },
         // Your chart options
