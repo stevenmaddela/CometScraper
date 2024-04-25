@@ -1026,7 +1026,7 @@ const handleRecommendationBoxClick = (index) => {
  </div>
  </div>
  
- <h1>Comet Scraper</h1>
+ <h1>CometScraper</h1>
  
  <div style={{ position: "relative", display: "inline-block" }}>
  <input
