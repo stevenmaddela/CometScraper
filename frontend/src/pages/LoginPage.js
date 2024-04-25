@@ -55,6 +55,10 @@ function LoginPage() {
 
       const signIn = async () => {
         try {
+          if (!loginPassword) { // Check if loginPassword is empty
+            throw new Error("Password must not be empty."); // Throw custom error for empty password
+        }
+
             await auth.signInWithEmailAndPassword(loginEmail, loginPassword);
             history.push(`/search`);
         } catch (err) {
@@ -69,7 +73,16 @@ function LoginPage() {
                 setPasswordError("Incorrect email or password");
                 // Clear the password field
                 setLoginPassword("");
-            } else if (err.code === 'auth/too-many-requests') {
+                
+            } 
+            else if (err.message === "Password must not be empty.") {
+              // Update the password error message for empty password
+              setPasswordError("Password must be 6+ characters.");
+              // Clear the password field
+                setLoginPassword("");
+            }
+
+            else if (err.code === 'auth/too-many-requests') {
                 // Update the password error message for too many login attempts
                 setPasswordError("Too many attempts. Try again later.");
                 // Clear the password field
@@ -255,7 +268,7 @@ function LoginPage() {
                                         margin="normal"
                                         required={false}
                                         name="password"
-                                        label={signUpPasswordError ? <span style={{ color: "red" }}>{signUpPasswordError}</span> : "EMAIL ADDRESS"} // Set label conditionally
+                                        label={signUpPasswordError ? <span style={{ color: "red" }}>{signUpPasswordError}</span> : "PASSWORD"} // Set label conditionally
                                         type="password"
                                         id="password"
                                         autoComplete="current-password"
