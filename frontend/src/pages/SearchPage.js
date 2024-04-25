@@ -646,7 +646,7 @@ if (isValidStock ) {
  useEffect(() => {
         const fetchTrendingData = async () => {
             try {
-                const response = await fetch('https://flask-hello-world-nu-mauve.vercel.app/trending');
+                const response = await fetch('https://flask-hello-world-nu-mauve.vercel.app/trending?');
                 if (!response.ok) {
                     throw new Error('Failed to fetch trending data');
                 }
