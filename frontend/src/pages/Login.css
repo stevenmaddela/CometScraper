@@ -1,3 +1,56 @@
+/* Media queries for mobile */
+@media only screen and (max-width: 768px) {
+    .custom-grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 50px;
+    }
+
+    .photo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .logoText {
+        font-size: 24px;
+        padding-left: 0;
+        padding-top: 10px;
+        text-align: center;
+    }
+
+    .welcomePhoto {
+        width: 100%;
+        height: auto;
+        padding: 20px 0;
+    }
+
+    .infoCard {
+        padding: 20px;
+        height: auto;
+    }
+
+    .loginHeader {
+        padding-top: 20px;
+        text-align: center;
+    }
+
+    .lowerLoginHeader {
+        text-align: center;
+    }
+
+    .textField {
+        width: 100%;
+    }
+
+    .loginButton {
+        width: 100%;
+    }
+}
+
+/* Keep existing styles for larger screens */
+/* .photo, .logoText, .welcomePhoto, .infoCard, .loginHeader, .lowerLoginHeader, .textField, .loginButton, .noAcc { ... } */
+
 .photo {
     height: 100px;
     width: 100px;
