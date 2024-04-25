@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import {  auth, database, googleAuthProvider , } from "../config/firebase";
 import firebase from 'firebase/compat/app';
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
-
+import { InputAdornment } from '@mui/material';
 
 
 function LoginPage() {
@@ -35,6 +35,10 @@ function LoginPage() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [forgotPasswordState, setForgotPasswordState] = useState(false);
     const forgotPassword = () => {setForgotPasswordState((prevState) => !prevState)}
+    const [passwordError, setPasswordError] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [signUpEmailError, setSignUpEmailError] = useState("");
+    const [signUpPasswordError, setSignUpPasswordError] = useState("");
     
 
     useEffect(() => {
@@ -51,12 +55,31 @@ function LoginPage() {
 
       const signIn = async () => {
         try {
-          await auth.signInWithEmailAndPassword(loginEmail, loginPassword);
-          history.push(`/search`);
+            await auth.signInWithEmailAndPassword(loginEmail, loginPassword);
+            history.push(`/search`);
         } catch (err) {
-          console.error(err);
+            console.error(err);
+            if (err.code === 'auth/invalid-email') {
+
+              setEmailError("Invalid Email");
+              setLoginEmail("");
+               
+            } else if (err.code === 'auth/invalid-login-credentials' || err.code === 'auth/user-not-found') {
+                // Update the password error message for invalid login credentials or user not found
+                setPasswordError("Incorrect email or password");
+                // Clear the password field
+                setLoginPassword("");
+            } else if (err.code === 'auth/too-many-requests') {
+                // Update the password error message for too many login attempts
+                setPasswordError("Too many attempts. Try again later.");
+                // Clear the password field
+                setLoginPassword("");
+            } else {
+                // Handle other error cases here
+                console.error('SHHHHHHHHHHHHHHHHHH Error:', err.code);
+            }
         }
-      };
+    };
     
       const signUp = async () => {
         try {
@@ -80,6 +103,20 @@ function LoginPage() {
           }
         } catch (err) {
           console.error(err);
+          if (err.code === 'auth/invalid-email' || err.code === 'auth/email-already-in-use') {
+
+            setSignUpEmailError("Invalid Email");
+            setEmail("");
+             
+          } else if (err.code === 'auth/weak-password' || err.code === 'auth/missing-password') {
+              // Update the password error message for invalid login credentials or user not found
+              setSignUpPasswordError("Password must be 6+ characters.");
+              // Clear the password field
+              setPassword("");
+          } else {
+              // Handle other error cases here
+              console.error('SHHHHHHHHHHHHHHHHHH Error:', err.code);
+          }
         }
       };
     
@@ -112,6 +149,22 @@ function LoginPage() {
           console.log(errorMessage + " " + errorCode)
         });
       }
+
+      const clearPasswordError = () => {
+        setPasswordError("");
+    };
+
+     const clearEmailError = () => {
+      setEmailError("");
+    }
+
+    const clearSignUpEmailError = () => {
+      setSignUpEmailError("");
+    }
+
+    const clearSignUpPasswordError = () => {
+      setSignUpPasswordError("");
+    }
     
 
     return (
@@ -181,11 +234,12 @@ function LoginPage() {
                                         margin="normal"
                                         required={false}
                                         id="email"
-                                        label={<span style={{ fontFamily: 'Avenir' }}>EMAIL ADDRESS</span>}
+                                        label={signUpEmailError ? <span style={{ color: "red" }}>{signUpEmailError}</span> : "EMAIL ADDRESS"} // Set label conditionally
                                         name="email"
                                         autoComplete="email"
                                         autoFocus
                                         onChange={handleEmail}
+                                        onFocus={clearSignUpEmailError} // Clear password error when input is focused
                                         InputProps={{
                                             style: {
                                               borderRadius: "7.5px",
@@ -201,11 +255,12 @@ function LoginPage() {
                                         margin="normal"
                                         required={false}
                                         name="password"
-                                        label={<span style={{ fontFamily: 'Avenir' }}>PASSWORD</span>}
+                                        label={signUpPasswordError ? <span style={{ color: "red" }}>{signUpPasswordError}</span> : "EMAIL ADDRESS"} // Set label conditionally
                                         type="password"
                                         id="password"
                                         autoComplete="current-password"
                                         onChange={handlePassword}
+                                        onFocus={clearSignUpPasswordError} // Clear password error when input is focused
                                         InputProps={{
                                             style: {
                                               borderRadius: "7.5px",
@@ -284,11 +339,12 @@ function LoginPage() {
                                         margin="normal"
                                         required={false}
                                         id="email"
-                                        label={<span style={{ fontFamily: 'Avenir' }}>EMAIL ADDRESS</span>}
+                                        label={emailError ? <span style={{ color: "red" }}>{emailError}</span> : "EMAIL ADDRESS"} // Set label conditionally
                                         name="email"
                                         autoComplete="email"
                                         autoFocus
                                         onChange={handleLoginEmail}
+                                        onFocus={clearEmailError}
                                         InputProps={{
                                             style: {
                                               borderRadius: "7.5px",
@@ -297,23 +353,19 @@ function LoginPage() {
                                     />
                                     <br />
                                     <TextField
-                                        value={loginPassword}
-                                        className={"textField"}
-                                        margin="normal"
-                                        required={false}
-                                        name="password"
-                                        label={<span style={{ fontFamily: 'Avenir' }}>PASSWORD</span>}
-                                        type="password"
-                                        id="password"
-                                        autoComplete="current-password"
-                                        onChange={handleLoginPassword}
-                                        InputProps={{
-                                            style: {
-                                              borderRadius: "7.5px",
-                                            }
-                                          }}
+                                      value={loginPassword}
+                                      className={"textField"}
+                                      margin="normal"
+                                      required={false}
+                                      name="password"
+                                      label={passwordError ? <span style={{ color: "red" }}>{passwordError}</span> : "PASSWORD"} // Set label conditionally
+                                      type="password"
+                                      id="password"
+                                      autoComplete="current-password"
+                                      onChange={handleLoginPassword}
+                                      onFocus={clearPasswordError} // Clear password error when input is focused
+                                  />
 
-                                    />
                                     <br />
                                     <Button
                                         variant="contained"
