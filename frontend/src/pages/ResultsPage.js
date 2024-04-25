@@ -144,7 +144,7 @@ function ResultsPage() {
     const fetchData = async () => {
       try {
         if (stockTicker && stockTicker.trim() !== '') {
-          const res = await fetch(`https://cometscraperbackend-production.up.railway.app/sentiment?ticker=${stockTicker}`);
+          const res = await fetch(`https://flask-hello-world-nu-mauve.vercel.app/sentiment?ticker=${stockTicker}`);
           
           if (!res.ok) {
             console.log("Network response was not ok.");
