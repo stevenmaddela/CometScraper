@@ -535,7 +535,7 @@ useEffect(() => {
  // Redirect to the results page only if the entered stock ticker is valid
  
 if (isValidStock ) {
- const stockInfoResponse = await fetch(`https://cometscraperbackend-production.up.railway.app/stock_info?ticker=${stockTicker}`);
+ const stockInfoResponse = await fetch(`https://flask-hello-world-nu-mauve.vercel.app/stock_info?ticker=${stockTicker}`);
  if (!stockInfoResponse.ok) {
  throw new Error(`Failed to fetch stock info for ${stockTicker}`);
  }
@@ -646,7 +646,7 @@ if (isValidStock ) {
  useEffect(() => {
         const fetchTrendingData = async () => {
             try {
-                const response = await fetch('https://cometscraperbackend-production.up.railway.app/trending');
+                const response = await fetch('https://flask-hello-world-nu-mauve.vercel.app/trending');
                 if (!response.ok) {
                     throw new Error('Failed to fetch trending data');
                 }
@@ -660,7 +660,7 @@ if (isValidStock ) {
 
                 for (let i = 0; i < Math.min(8, trendingArray.length); i++) {
                     const stock = trendingArray[i];
-                    const stockInfoResponse = await fetch(`https://cometscraperbackend-production.up.railway.app/stock_info?ticker=${stock}`);
+                    const stockInfoResponse = await fetch(`https://https://flask-hello-world-nu-mauve.vercel.app/stock_info?ticker=${stock}`);
                     if (!stockInfoResponse.ok) {
                         throw new Error(`Failed to fetch stock info for ${stock}`);
                     }
@@ -676,7 +676,7 @@ if (isValidStock ) {
 
                 for (let i = 0; i < Math.min(8, losingArray.length); i++) {
                     const stock = losingArray[i];
-                    const stockInfoResponse = await fetch(`https://cometscraperbackend-production.up.railway.app/stock_info?ticker=${stock}`);
+                    const stockInfoResponse = await fetch(`https://https://flask-hello-world-nu-mauve.vercel.app/stock_info?ticker=${stock}`);
                     if (!stockInfoResponse.ok) {
                         throw new Error(`Failed to fetch stock info for ${stock}`);
                     }
@@ -715,7 +715,7 @@ if (isValidStock ) {
               console.log(encodedArrayOfArrays);
       
               // Make the fetch request with the encoded array of arrays in the URL
-              const watchlistResponse = await fetch(`https://cometscraperbackend-production.up.railway.app/recommendations?arrayOfArrays=${encodedArrayOfArrays}`);      
+              const watchlistResponse = await fetch(`https://flask-hello-world-nu-mauve.vercel.app/recommendations?arrayOfArrays=${encodedArrayOfArrays}`);      
       
               if (!watchlistResponse.ok) {
                 throw new Error('Failed to fetch recommendations with watchlist');
@@ -875,7 +875,7 @@ let parsedSingleRecommendation;
 for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
     try {
         const singleRecommendationResponse = await Promise.race([
-            fetch(`https://cometscraperbackend-production.up.railway.app/SingleRecommendation?arrayOfArrays=${encodedArrayOfArrays}`),
+            fetch(`https://https://flask-hello-world-nu-mauve.vercel.app/SingleRecommendation?arrayOfArrays=${encodedArrayOfArrays}`),
             new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), TIMEOUT_MS))
         ]);
         
@@ -922,7 +922,7 @@ const updateWatchlistArray = async () => {
     
 
     for (let i = 0; i < watchlistArray.length; i++) {
-      const stockInfoResponse = await fetch(`https://cometscraperbackend-production.up.railway.app/stock_info?ticker=${watchlistArray[i][0]}`);
+      const stockInfoResponse = await fetch(`https://flask-hello-world-nu-mauve.vercel.app/stock_info?ticker=${watchlistArray[i][0]}`);
       
       
       
