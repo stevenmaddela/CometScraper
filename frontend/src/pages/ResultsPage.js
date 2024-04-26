@@ -485,7 +485,7 @@ useEffect(() => {
     
       // Call setIsGraphVisible and setRefresh after scrolling
       setIsGraphVisible(!isGraphVisible);
-      setRefresh(!refresh);
+      setRefresh(true);
     }, 100); // Adjust the delay time as needed
     
 
