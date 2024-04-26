@@ -487,7 +487,8 @@ useEffect(() => {
       setIsGraphVisible(!isGraphVisible);
       setRefresh(true);
     }, 100); // Adjust the delay time as needed
-    
+    setRefresh(false);
+    setRefresh(true);
 
 };
 
