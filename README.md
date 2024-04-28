@@ -2,6 +2,8 @@
 
 This is a [React]() app that offers investors real-time sentiment analysis of news articles related to specific stock tickers, alongside features like tracking sentiment trends over time and personalized watchlist recommendations, enhancing investment decision-making.
 
+https://comet-scraper.vercel.app/
+
 ### Built With
 
 Frontend
